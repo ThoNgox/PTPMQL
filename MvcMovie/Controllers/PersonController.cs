@@ -2,29 +2,23 @@ namespace MvcMovie.Controllers
 {
 
     using Microsoft.AspNetCore.Mvc;
+    using MvcMovie.Models;
 
     public class PersonController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
-
-            ViewBag.Message = "Chào mừng bạn!";
-
-            
-            ViewBag.Year = DateTime.Now.Year;
             return View();
         }
+
         [HttpPost]
-        public IActionResult Index(string Fullname, string Address)
+        public IActionResult Index(Person model)
         {
-            string strOutput = "xin chao " + Fullname + " den tu " + Address;
-            ViewBag.Message = strOutput;
-            return View();
-        }
+            int age = DateTime.Now.Year - model.YearOfBirth;
 
-        public IActionResult Welcome()
-        {
-            ViewData["Message"] = "Your welcome message";
+            ViewBag.FullName = model.FullName;
+            ViewBag.Age = age;
 
             return View();
         }

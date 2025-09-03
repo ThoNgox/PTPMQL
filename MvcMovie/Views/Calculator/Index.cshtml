@@ -1,0 +1,35 @@
+@model MvcMovie.Models.Calculator
+@{
+    ViewData["Title"]="Tinh 2 so";
+}
+<h1>Tinh 2 so</h1>
+<form action="Index" method="post">
+    <div>
+        <label for="NumberA">So thu nhat</label>
+        <input type="number" name="NumberA" required/>
+
+    </div>
+    <div>
+        <label for="NumberB">So thu hai</label>
+        <input type="number" name="NumberB" required/>
+    </div>
+    <div>
+        <label for="Operator">Chon phep tinh:</label>
+        <select name="Operator" id="">
+            <option value="COng">Cong</option>
+            <option value="Tru">Tru</option>
+            <option value="Nhan">Nhan</option>
+            <option value="Chia">Chia</option>
+        </select>
+    </div>
+    <button type="submit">Tinh</button>
+</form>
+@if(ViewBag.Result != null)
+{
+    <h2>Ket qua</h2>
+    <h3>@ViewBag.Result</h3>
+}
+@if(ViewBag.Error !=null)
+{
+    <h3>@ViewBag.Error</h3>
+}
