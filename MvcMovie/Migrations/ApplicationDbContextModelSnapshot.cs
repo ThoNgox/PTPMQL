@@ -53,33 +53,6 @@ namespace MvcMovie.Migrations
                     b.ToTable("DaiLy");
                 });
 
-            modelBuilder.Entity("MvcMovie.Models.Employee", b =>
-                {
-                    b.Property<string>("FullName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("EmployeeId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PersonID")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("YearOfBirth")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("FullName");
-
-                    b.ToTable("Person");
-                });
-
             modelBuilder.Entity("MvcMovie.Models.HeThongPhanPhoi", b =>
                 {
                     b.Property<string>("MaHTPP")
@@ -92,6 +65,36 @@ namespace MvcMovie.Migrations
                     b.HasKey("MaHTPP");
 
                     b.ToTable("HeThongPhanPhoi");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Person", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PersonID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Person");
+
+                    b.HasDiscriminator().HasValue("Person");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Student", b =>
@@ -109,6 +112,19 @@ namespace MvcMovie.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Student");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Employee", b =>
+                {
+                    b.HasBaseType("MvcMovie.Models.Person");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.ToTable("Person");
+
+                    b.HasDiscriminator().HasValue("Employee");
                 });
 
             modelBuilder.Entity("MvcMovie.Models.DaiLy", b =>

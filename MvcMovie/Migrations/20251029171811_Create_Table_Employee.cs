@@ -5,7 +5,7 @@
 namespace MvcMovie.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_Table_HeThongPhanPhoi : Migration
+    public partial class Create_Table_Employee : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

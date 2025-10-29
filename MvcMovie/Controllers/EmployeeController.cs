@@ -34,7 +34,7 @@ namespace MvcMovie.Controllers
             }
 
             var employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.FullName == id);
+                .FirstOrDefaultAsync(m => m.Name == id);
             if (employee == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace MvcMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,Age,FullName,PersonID,Address,YearOfBirth")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmployeeId,Age,Name,PersonID,Address")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace MvcMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("EmployeeId,Age,FullName,PersonID,Address,YearOfBirth")] Employee employee)
+        public async Task<IActionResult> Edit(string id, [Bind("EmployeeId,Age,Name,PersonID,Address")] Employee employee)
         {
-            if (id != employee.FullName)
+            if (id != employee.Name)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace MvcMovie.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.FullName))
+                    if (!EmployeeExists(employee.Name))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace MvcMovie.Controllers
             }
 
             var employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.FullName == id);
+                .FirstOrDefaultAsync(m => m.Name == id);
             if (employee == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace MvcMovie.Controllers
 
         private bool EmployeeExists(string id)
         {
-            return _context.Employee.Any(e => e.FullName == id);
+            return _context.Employee.Any(e => e.Name == id);
         }
     }
 }

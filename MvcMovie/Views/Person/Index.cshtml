@@ -1,23 +1,47 @@
-@model MvcMovie.Models.Person
-@{
-    ViewData["Title"] = "Thong tin ca nhan";
+@model IEnumerable<MvcMovie.Models.Person>
 
+@{
+    ViewData["Title"] = "Index";
 }
-<h1>Nhap thong tin ca nhan</h1>
-<form action="Index" method="post">
-    <div>
-        <label for="FullName">Ho va ten</label>
-        <input type="text" name="FullName" required>
-    </div>
-    <div>
-        <label for="YearOfBirth">Nam sinh</label>
-        <input type="number" name="YearOfBirth" required>
-    </div>
-    <button type="submit">gui</button>
-</form>
-@if (ViewBag.FullName !=null)
-{
-    <h2>Ket qua</h2>
-    <h3>Xin chao @ViewBag.FullName</h3>
-    <h3>ban nam nay @ViewBag.Age tuoi</h3>
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Name">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Name">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Name">Delete</a>
+            </td>
+        </tr>
 }
+    </tbody>
+</table>
