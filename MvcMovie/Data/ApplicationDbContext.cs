@@ -16,6 +16,8 @@ namespace MvcMovie.Data
 
         public DbSet<MvcMovie.Models.Student> Student { get; set; } = default!;
         public DbSet<MvcMovie.Models.Employee> Employee { get; set; } = default!;
+        public DbSet<DaiLy> DaiLy { get; set; }
+        public DbSet<MvcMovie.Models.HeThongPhanPhoi> HeThongPhanPhoi { get; set; } = default!;
     }
     
 }

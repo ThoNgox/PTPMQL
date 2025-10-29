@@ -10,22 +10,22 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
-    public class StudentController : Controller
+    public class DaiLyController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public StudentController(ApplicationDbContext context)
+        public DaiLyController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Student
+        // GET: DaiLy
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Student.ToListAsync());
+            return View(await _context.DaiLy.ToListAsync());
         }
 
-        // GET: Student/Details/5
+        // GET: DaiLy/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
+            var daiLy = await _context.DaiLy
+                .FirstOrDefaultAsync(m => m.MaDaiLy == id);
+            if (daiLy == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(daiLy);
         }
 
-        // GET: Student/Create
+        // GET: DaiLy/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Student/Create
+        // POST: DaiLy/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,DateOfBirth")] Student student)
+        public async Task<IActionResult> Create([Bind("MaDaiLy,TenDaiLy,DiaChi,NguoiDaiDien,DienThoai,MaHTPP")] DaiLy daiLy)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(student);
+                _context.Add(daiLy);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(daiLy);
         }
 
-        // GET: Student/Edit/5
+        // GET: DaiLy/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Student.FindAsync(id);
-            if (student == null)
+            var daiLy = await _context.DaiLy.FindAsync(id);
+            if (daiLy == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(daiLy);
         }
 
-        // POST: Student/Edit/5
+        // POST: DaiLy/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,DateOfBirth")] Student student)
+        public async Task<IActionResult> Edit(string id, [Bind("MaDaiLy,TenDaiLy,DiaChi,NguoiDaiDien,DienThoai,MaHTPP")] DaiLy daiLy)
         {
-            if (id != student.Id)
+            if (id != daiLy.MaDaiLy)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace MvcMovie.Controllers
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(daiLy);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.Id))
+                    if (!DaiLyExists(daiLy.MaDaiLy))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace MvcMovie.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(daiLy);
         }
 
-        // GET: Student/Delete/5
+        // GET: DaiLy/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
+            var daiLy = await _context.DaiLy
+                .FirstOrDefaultAsync(m => m.MaDaiLy == id);
+            if (daiLy == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(daiLy);
         }
 
-        // POST: Student/Delete/5
+        // POST: DaiLy/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var student = await _context.Student.FindAsync(id);
-            if (student != null)
+            var daiLy = await _context.DaiLy.FindAsync(id);
+            if (daiLy != null)
             {
-                _context.Student.Remove(student);
+                _context.DaiLy.Remove(daiLy);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(string id)
+        private bool DaiLyExists(string id)
         {
-            return _context.Student.Any(e => e.Id == id);
+            return _context.DaiLy.Any(e => e.MaDaiLy == id);
         }
     }
 }
